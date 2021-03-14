@@ -10,7 +10,7 @@ import Product from '../models/Product';
 
 export default function ProductItemCard({ item }) {
   const [count, setCount] = useState(1);
-  const [size, setSize] = useState(null);
+  const [size, setSize] = useState(1);
   const dispatch = useDispatch();
   
   const avalibleSizes = item.sizes.filter(({ avalible }) => avalible);
@@ -18,7 +18,9 @@ export default function ProductItemCard({ item }) {
   const sizes = item.sizes ? samples : [];
   const blank = sizes.length === 0;
 
+  //Косяк с занесением колличества в корзину
   const handleIncrement = () => {
+    console.log(count)
     return count >= 10 ? setCount(10) : setCount(count + 1);
   };
 
@@ -28,7 +30,7 @@ export default function ProductItemCard({ item }) {
 
   // Обработчик отправки выбранного товара в корзину
   const handleSubmitToCart = () => {
-    const newItem = new Product(item.id, item.title, size, count, item.price);
+    const newItem = new Product(item.id, item.title, size.size, count.count, item.price);
     dispatch(cartAddItem(newItem));
     dispatch(push('/cart'));
   };
@@ -104,7 +106,7 @@ export default function ProductItemCard({ item }) {
                 </span>
               </p>
 
-              <button className='btn btn-danger btn-block btn-lg' disabled={!size} onClick={handleSubmitToCart}>В корзину</button>
+              <button className='btn btn-danger btn-block btn-lg' onClick={handleSubmitToCart}>В корзину</button>
             </>
           )
         }

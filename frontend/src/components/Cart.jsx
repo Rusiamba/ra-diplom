@@ -37,10 +37,12 @@ export default function Cart() {
     return <RepeatRequestButton error={error} onClick={() => handleSendCart()} />;
   } else {
     return (
-      <>
-        <CartTable />
-        <CartForm onSubmit={(newOwner) => handleSendCart(newOwner)} />
-      </>
+      <div>
+        <div className="price-cart">
+          <CartTable  />
+          <CartForm className="order" onSubmit={(newOwner) => handleSendCart(newOwner)} />
+        </div>
+      </div>
     );
   }
 }
